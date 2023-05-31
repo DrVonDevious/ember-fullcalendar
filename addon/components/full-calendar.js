@@ -1,12 +1,11 @@
 import Ember from 'ember';
 import layout from '../templates/components/full-calendar';
-import { InvokeActionMixin } from 'ember-invoke-action';
 import { Calendar } from '@fullcalendar/core';
 import deepEqual from 'fast-deep-equal'
 
 const { assign, observer, computed, getOwner } = Ember;
 
-export default Ember.Component.extend(InvokeActionMixin, {
+export default Ember.Component.extend({
   /////////////////////////////////////
   // PROPERTIES
   /////////////////////////////////////
@@ -264,7 +263,7 @@ export default Ember.Component.extend(InvokeActionMixin, {
       // create an event handler that runs the function inside an event loop.
       actions[eventName] = (...args) => {
         Ember.run.schedule('actions', this, () => {
-          this.invokeAction(eventName, ...args, this.get('calendar'));
+          this.sendAction(eventName, ...args, this.get('calendar'));
         });
       };
 
